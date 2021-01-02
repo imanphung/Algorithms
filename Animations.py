@@ -1,6 +1,6 @@
 from Graphs import initialize, generateFigure, getRawData, readMatrix, np, initialize_uGraph, generateFigure_uGraph
 from Colors import *
-from student_functions import DFS, BFS, UCS, Prim, Kruskal, ConnectedComponents
+from Algorithms import DFS, BFS, UCS, Prim, Kruskal, ConnectedComponents
 import pygame
 from pygame.locals import *
 pygame.init()
@@ -101,8 +101,6 @@ def runMSTs(input, algorithm, delay):
         edges = Prim(matrix)
     elif algorithm == 'kruskal':
         edges= Kruskal(matrix)
-    elif algorithm == 'connected_components':
-        edges = ConnectedComponents(matrix)
     else:
         print("Pass a MST algorithm to run program.")
 

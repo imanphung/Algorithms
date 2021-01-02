@@ -1,8 +1,9 @@
 import numpy as np
+import queue
 
 def DFS(matrix, start, end):
     """
-    BFS algorithm:
+    DFS(Depth-first search) algorithm:
     Parameters:
     ---------------------------
     matrix: np array 
@@ -23,10 +24,10 @@ def DFS(matrix, start, end):
     #TODO:
     path=[]
     visited={}
-    parent={}
+    
     # Set the visited value of start node to visited
-    new_node_visited = {start: -1}
-    visited.update(new_node_visited)
+    startnode_visited = {start: -1}
+    visited.update(startnode_visited)
 
 	# Add the start node to the stack
     stack = [start]
@@ -34,31 +35,25 @@ def DFS(matrix, start, end):
     while len(stack) != 0:
         # Get a new node
         node = stack.pop()
-        if node not in visited or node == start:
-            path.append(node)
-            adjacent_note=[]
-            for x in range (0, len(matrix)):
-                # Check is route exists and the node isn't visited
-                if matrix[node][x] >= 1 and x not in visited:
-                    new_node = {x: node}
-                    parent.update(new_node)
-                    adjacent_note.append(x)
-            
-            [stack.append(node) for node in reversed(adjacent_note)]
-            if node != start:
-                new_node_visited = {node: parent[node]}
-                visited.update(new_node_visited)
-                # Stack is empty or the node is end, break        
-                if node == end:
-                    break
-                if len(adjacent_note) == 0:
-                    path.append(parent[node])
+        path.append(node)
+        adjacent_note=[]
+        for x in range (0, len(matrix)):
+            # Check is route exists and the node isn't visited
+            if matrix[node][x] >= 1 and x not in visited:
+                new_node = {x: node}
+                visited.update(new_node)
+                adjacent_note.append(x)
+        
+        [stack.append(node) for node in reversed(adjacent_note)]
+
+        if node == end:
+            break
                     
     return visited, path
 
 def BFS(matrix, start, end):
     """
-    DFS algorithm
+    BFS(Breadth-first search) algorithm
      Parameters:
     ---------------------------
     matrix: np array 
@@ -80,10 +75,10 @@ def BFS(matrix, start, end):
     #TODO:
     path=[]
     visited={}
-    parent={}
+
     # Set the visited value of start node to visited
-    new_node_visited = {start: -1}
-    visited.update(new_node_visited)
+    startnode_visited = {start: -1}
+    visited.update(startnode_visited)
 
 	# Add the start node to the queue
     q = queue.Queue()
@@ -92,25 +87,16 @@ def BFS(matrix, start, end):
     while q.empty() == False:
         # Get a new node
         node = q.get()
-        if node not in visited or node == start:
-            path.append(node)
-            adjacent_note = True
-            for x in range (0, len(matrix)):
-                # Check is route exists and the node isn't visited
-                if matrix[node][x] >= 1 and x not in visited:    
-                    new_node = {x: node}
-                    parent.update(new_node)
-                    q.put(x)
-                    adjacent_note = False
-
-            if node != start:
-                new_node_visited = {node: parent[node]}
-                visited.update(new_node_visited)
-                # Stack is empty or the node is end, break        
-                if node == end:
-                    break
-                if adjacent_note == True:
-                    path.append(parent[node])
+        path.append(node)
+        for x in range (0, len(matrix)):
+            # Check is route exists and the node isn't visited
+            if matrix[node][x] >= 1 and x not in visited:    
+                new_node = {x: node}
+                visited.update(new_node)
+                q.put(x)
+        
+        if node == end:
+            break
     
     return visited, path
 

@@ -13,11 +13,16 @@ if __name__ == '__main__':
     # if (len(sys.argv)==4):
     #     time_delay = int(sys.argv[4])
     # else: time_delay=500
-    # runMSTs(input, al, time_delay)
-    al = 'connected_components'
+    
+    # if al in ['bfs', 'dfs', 'ucs']:
+    #     runSearchAlgorithms(input, al, time_delay)
+        
+    # elif al in ['prim', 'kruskal']:  
+    #     runMSTs(input, al, time_delay)
+        
+    # elif al in ['connected_components']:
+    #     runCP(input, al, time_delay)
     input = 'input.txt'
     time_delay=500
-    runCP(input, al, time_delay)
-
-   
-    
+    al = 'dfs'
+    runSearchAlgorithms(input, al, time_delay)
